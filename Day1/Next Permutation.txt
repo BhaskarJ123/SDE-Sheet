@@ -1,0 +1,38 @@
+class Solution {
+    public void nextPermutation(int[] nums) {
+        int len = nums.length;
+        int idx1 = 0;
+        int flag = 0;
+        for(int i=len-2;i>=0;i--){
+            if(nums[i]<nums[i+1]){
+                idx1 = i;
+                flag = 1;
+                break;
+            }
+        }
+        if(flag == 0){
+            Arrays.sort(nums);
+            return;
+        }
+        int idx2 = 0;
+        for(int i=len-1;i>=0;i--){
+            if(nums[i]>nums[idx1]){
+                idx2 = i;
+                break;
+            }
+        }
+        int temp = nums[idx1];
+        nums[idx1] = nums[idx2];
+        nums[idx2] = temp;
+        int start = idx1 + 1;
+        int end = len-1;
+        while(start<end){
+            temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = temp;
+            start++;
+            end--;
+        }
+        return;
+    }
+}
