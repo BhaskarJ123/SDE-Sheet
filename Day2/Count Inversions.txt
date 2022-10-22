@@ -1,0 +1,41 @@
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+    public static long getInversions(long arr[], int n) {
+        mergesort(arr);
+        return count;
+    }
+    static long[] mergesort(long[] a){
+        if(a.length == 1)
+            return a;
+        int mid = a.length/2;
+        long[] left = mergesort(Arrays.copyOfRange(a,0,mid));
+        long[] right =mergesort(Arrays.copyOfRange(a,mid,a.length));
+        return merge(left,right);
+    }
+    static long count = 0;
+    static long[] merge(long[] left,long[] right){
+        long[] res = new long[left.length+right.length];
+        int k = 0,p1 = 0,p2 = 0;
+        while(p1<left.length && p2<right.length){
+            if(left[p1]<=right[p2]){
+                res[k++] = left[p1];
+                p1++;
+            }
+            else{
+                res[k++] = right[p2];
+                count += left.length-p1;
+                p2++;
+            }
+        }
+        while(p1<left.length){
+            res[k++] = left[p1];
+            p1++;
+        }
+        while(p2<right.length){
+            res[k++] = right[p2];
+            p2++;
+        }
+        return res;
+    }
+}
