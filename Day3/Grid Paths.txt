@@ -1,0 +1,22 @@
+class Solution {
+    public int uniquePaths(int m, int n) {
+        int[][] pathcounter = new int[m][n];
+        int totalpath = findpath(m,0,n,0,pathcounter);
+        return totalpath;
+    }
+    static int findpath(int rows,int r,int columns,int c,int[][] pathcounter){
+        if(r >= rows)
+            return 0;
+        if(c >= columns)
+            return 0;
+        if(r == rows-1 && c == columns-1)
+            return 1;
+        if(pathcounter[r][c]!=0)
+            return pathcounter[r][c];
+        int path1 = findpath(rows,r+1,columns,c,pathcounter);
+        int path2 = findpath(rows,r,columns,c+1,pathcounter);
+        int totalpath = path1 + path2;
+        pathcounter[r][c] = totalpath;
+        return totalpath;
+    }
+}
