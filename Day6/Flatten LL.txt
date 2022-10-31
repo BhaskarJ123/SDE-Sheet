@@ -1,0 +1,44 @@
+class GfG
+{
+    Node flatten(Node root)
+    {
+        Node temp = root.next;
+        while(temp!=null){
+            Node temp2 = temp;
+            while(temp2!=null){
+                root = insertNode(root,temp2);
+                temp2 = temp2.bottom;
+            }
+            temp = temp.next;
+        }
+        return root;
+    }
+    static Node insertNode(Node root,Node temp){
+        Node temp2 = new Node(temp.data);
+        if(temp2.data<=root.data){
+            temp2.bottom = root;
+            temp2.next = null;
+            root = temp2;
+            return root;
+        }
+        Node slow = root;
+        Node fast = root.bottom;
+        while(fast!=null){
+            if(slow.data<=temp2.data && temp2.data<=fast.data)
+                break;
+            slow = fast;
+            fast = fast.bottom;
+        }
+        if(fast == null){
+            slow.bottom = temp2;
+            temp2.bottom = null;
+            temp2.next = null;
+        }
+        else{
+            temp2.bottom = fast;
+            slow.bottom = temp2;
+            temp2.next = null;
+        }
+        return root;
+    }
+}
