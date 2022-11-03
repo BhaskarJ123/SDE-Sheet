@@ -1,0 +1,23 @@
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        if(nums.length == 1)
+            return 1;
+        int i = 0;
+        for(i = 1;i<nums.length;i++){
+            if(nums[i]==nums[i-1])
+                break;
+        }
+        if(i == nums.length || i == nums.length-1)
+            return i;
+        int pointer = i,helper = i+1,max = nums[i];
+        while(helper<nums.length){
+            if(nums[helper]>max){
+                max = nums[helper];
+                nums[pointer] = nums[helper];
+                pointer++;
+            }
+            helper++;
+        }
+        return pointer;
+    }
+}
